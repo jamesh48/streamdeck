@@ -1,0 +1,1 @@
+launchctl unload /Library/LaunchAgents/com.paloaltonetworks.gp.pangpa.plist && launchctl load /Library/LaunchAgents/com.paloaltonetworks.gp.pangpa.plist
