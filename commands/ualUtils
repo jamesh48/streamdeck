@@ -1,0 +1,47 @@
+getPasswordOnlyNppid() {
+  ual tss get-password --nppid;
+}
+
+getPasswordOnlyPpid() {
+  ual tss get-password --ppid;
+}
+
+loginOneShotLowerEnv() {
+  ual tss load-credentials;
+  ual aws auth --nppid;
+  getPasswordOnlyNppid;
+}
+
+loginOneShotHigherEnv() {
+  ual tss load-credentials;
+  ual aws auth --ppid;
+  getPasswordOnlyPpid;
+}
+
+
+lowerEnv() {
+read -p "Get password only y/n? " resp
+  case "$resp" in
+    y) getPasswordOnlyNppid;;
+    n) loginOneShotLowerEnv;;
+  esac
+}
+
+higherEnv() {
+read -p "Get password only y/n? " resp
+  case "$resp" in
+    y) getPasswordOnlyPpid;;
+    n) loginOneShotHigherEnv;;
+  esac
+}
+
+execute() {
+read -p "Select Lower Env (1) Higher Env (2) " envResp
+  case "$envResp" in
+    1) lowerEnv;;
+    2) higherEnv;;
+  esac
+}
+
+execute;
+

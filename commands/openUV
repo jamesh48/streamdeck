@@ -1,1 +1,1 @@
-npx kill-port -- port 3005 && code /Users/jameshrivnak/Documents/United/UnitedView && npm run start:proxy
+npx kill-port -- port 8080 && code /Users/jameshrivnak/Documents/United/UnitedView
