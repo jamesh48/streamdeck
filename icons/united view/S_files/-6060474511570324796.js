@@ -1,0 +1,5 @@
+
+/*---
+/js/polyfills.js
+---*/
+(function(){if(typeof window.CustomEvent==="function"){return;}function a(c,d){d=d||{bubbles:false,cancelable:false,detail:undefined};var b=document.createEvent("CustomEvent");b.initCustomEvent(c,d.bubbles,d.cancelable,d.detail);return b;}a.prototype=window.Event.prototype;window.CustomEvent=a;})();(function(){if(typeof window.Event==="function"){return;}function a(){return window.CustomEvent.apply(this,arguments);}a.prototype=window.Event.prototype;window.Event=a;})();(function(){if(!Element.prototype.matches){Element.prototype.matches=Element.prototype.msMatchesSelector||Element.prototype.webkitMatchesSelector;}if(!Element.prototype.closest){Element.prototype.closest=function(b){var a=this;if(!document.documentElement.contains(a)){return null;}do{if(a.matches(b)){return a;}a=a.parentElement||a.parentNode;}while(a!==null&&a.nodeType===1);return null;};}})();

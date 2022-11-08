@@ -1,3 +1,8 @@
+# Utility Functions
+loadCredentials() {
+  ual tss load-credentials;
+}
+
 getPasswordOnlyNppid() {
   ual tss get-password --nppid;
 }
@@ -6,28 +11,40 @@ getPasswordOnlyPpid() {
   ual tss get-password --ppid;
 }
 
-loginOneShotLowerEnv() {
-  ual tss load-credentials;
-  ual aws auth --nppid;
+loginOneShotDev() {
+  ual aws auth --nppid --role DEV-N4C_CWD-L3;
   getPasswordOnlyNppid;
 }
 
-loginOneShotHigherEnv() {
-  ual tss load-credentials;
+loginOneShotQa() {
+  ual aws auth --nppid --role ADFS-QA-N4C_CWD-L4;
+  getPasswordOnlyNppid;
+}
+
+loginOneShotStg() {
   ual aws auth --ppid;
   getPasswordOnlyPpid;
 }
 
 
-lowerEnv() {
+devEnv() {
 read -p "Get password only y/n? " resp
   case "$resp" in
     y) getPasswordOnlyNppid;;
-    n) loginOneShotLowerEnv;;
+    n) loginOneShotDev;;
   esac
 }
 
-higherEnv() {
+qaEnv() {
+read -p "Get password only y/n? " resp
+  case "$resp" in
+    y) getPasswordOnlyNppid;;
+    n) loginOneShotQa;;
+  esac
+}
+
+
+stgEnv() {
 read -p "Get password only y/n? " resp
   case "$resp" in
     y) getPasswordOnlyPpid;;
@@ -36,10 +53,12 @@ read -p "Get password only y/n? " resp
 }
 
 execute() {
-read -p "Select Lower Env (1) Higher Env (2) " envResp
+loadCredentials;
+read -p "Select `echo $'\n> '` [ 1 ] dev `echo $'\n> '` [ 2 ] qa `echo $'\n> '` [ 3 ] stg `echo $'\n>> '` " envResp
   case "$envResp" in
-    1) lowerEnv;;
-    2) higherEnv;;
+    1) devEnv;;
+    2) qaEnv;;
+    3) stgEnv;;
   esac
 }
 
