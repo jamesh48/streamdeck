@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Utility Functions
 loadCredentials() {
   ual tss load-credentials;
@@ -11,45 +13,20 @@ getPasswordOnlyPpid() {
   ual tss get-password --ppid;
 }
 
-loginOneShotDev() {
+devEnv() {
   ual aws auth --nppid --role DEV-N4C_CWD-L3;
   getPasswordOnlyNppid;
 }
 
-loginOneShotQa() {
+qaEnv() {
   ual aws auth --nppid --role ADFS-QA-N4C_CWD-L4;
   getPasswordOnlyNppid;
 }
 
-loginOneShotStg() {
-  ual aws auth --ppid;
-  getPasswordOnlyPpid;
-}
-
-
-devEnv() {
-read -p "Get password only y/n? " resp
-  case "$resp" in
-    y) getPasswordOnlyNppid;;
-    n) loginOneShotDev;;
-  esac
-}
-
-qaEnv() {
-read -p "Get password only y/n? " resp
-  case "$resp" in
-    y) getPasswordOnlyNppid;;
-    n) loginOneShotQa;;
-  esac
-}
-
 
 stgEnv() {
-read -p "Get password only y/n? " resp
-  case "$resp" in
-    y) getPasswordOnlyPpid;;
-    n) loginOneShotHigherEnv;;
-  esac
+  ual aws auth --ppid --role ADFS-STG-N4C_CWD-L4
+  getPasswordOnlyPpid;
 }
 
 execute() {
