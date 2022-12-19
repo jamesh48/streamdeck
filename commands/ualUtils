@@ -25,17 +25,23 @@ qaEnv() {
 
 
 stgEnv() {
-  ual aws auth --ppid --role ADFS-STG-N4C_CWD-L4
+  ual aws auth --ppid --role ADFS-STG-N4C_CWD-L4;
+  getPasswordOnlyPpid;
+}
+
+prdEnv() {
+  ual aws auth --ppid --role ADFS-PRD-N4C_CWD-L4;
   getPasswordOnlyPpid;
 }
 
 execute() {
 loadCredentials;
-read -p "Select `echo $'\n> '` [ 1 ] dev `echo $'\n> '` [ 2 ] qa `echo $'\n> '` [ 3 ] stg `echo $'\n>> '` " envResp
+read -p "Select `echo $'\n> '` [ 1 ] dev `echo $'\n> '` [ 2 ] qa `echo $'\n> '` [ 3 ] stg `echo $'\n> '` [ 4 ] prd `echo $'\n>> '` " envResp
   case "$envResp" in
     1) devEnv;;
     2) qaEnv;;
     3) stgEnv;;
+    4) prdEnv;;
   esac
 }
 
